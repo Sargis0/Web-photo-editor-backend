@@ -44,13 +44,13 @@ app.use(passport.session());
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.use('/auth', authRoutes);
+app.use('/api/photos', photoRoutes);
+
 app.use((req, res, next) => {
     console.log(`[${req.method}] ${req.url} | origin: ${req.headers.origin}`);
     next();
 });
-
-app.use('/auth', authRoutes);
-app.use('/api/photos', photoRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
