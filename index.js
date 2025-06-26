@@ -54,8 +54,8 @@ app.use('/api/photos', photoRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
-        app.listen(5000, () => console.log('✅ Սերվերը սկսել է աշխատել 5000 պորտում'));
+        app.listen(5000, () => console.log('✅ The server started running on port 5000.'));
     })
     .catch(err => {
-        console.error('❌ MongoDB միացման սխալ:', err);
+        console.error('❌ MongoDB connection error:', err);
     });
