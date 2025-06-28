@@ -6,9 +6,11 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 
 router.get('/google/callback',
     passport.authenticate('google', {
-        successRedirect: 'https://web-photo-editor.netlify.app/loggedin',
         failureRedirect: 'https://web-photo-editor.netlify.app/login-failed'
-    })
+    }),
+    (req, res) => {
+        res.redirect('https://web-photo-editor.netlify.app/loggedin');
+    }
 );
 
 
