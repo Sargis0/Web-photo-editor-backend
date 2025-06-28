@@ -16,16 +16,16 @@ const app = express();
 app.set('trust proxy', 1);
 
 app.use(cors({
-    origin: 'https://web-photo-editor.netlify.app',
+    origin: ['https://web-photo-editor.netlify.app', 'http://localhost:5173'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept']
 }));
 
 app.use(express.json());
 
 app.use(session({
-    secret: 'secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -35,7 +35,8 @@ app.use(session({
     cookie: {
         sameSite: 'none',
         secure: true,
-        maxAge: 1000 * 60 * 60 * 24
+        maxAge: 1000 * 60 * 60 * 24,
+        domain: '.onrender.com'
     }
 }));
 
